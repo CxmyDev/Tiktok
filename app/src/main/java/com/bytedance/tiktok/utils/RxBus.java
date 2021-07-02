@@ -14,6 +14,8 @@ public class RxBus {
     private static volatile RxBus instance;
     private Subject<Object, Object> bus;
 
+
+
     private RxBus() {
         bus = new SerializedSubject<>(PublishSubject.create());
     }
