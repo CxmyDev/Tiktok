@@ -259,7 +259,7 @@ class RecommendFragment : BaseFragment() {
                 tvZixun.text = tipsBean.tipsText
                 view.visibility = View.GONE
                 llInformation!!.addView(view)
-            } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_LOCATION) {
+            } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_LOCATION || tipsBean.tipsType == "info") {
                 val view = LayoutInflater.from(context).inflate(R.layout.location_layout, null)
 
                 var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
