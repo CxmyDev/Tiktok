@@ -2,9 +2,13 @@ package com.bytedance.tiktok.utils.autolinktextview;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class AutolinkUtils {
 
     private static boolean isValidRegex(String regex){
+
         return regex != null && !regex.isEmpty() && regex.length() > 2;
     }
 

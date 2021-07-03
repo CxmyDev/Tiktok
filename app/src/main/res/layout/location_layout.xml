@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="130dp"
+    android:layout_height="130dp"
+    android:background="@drawable/shape_round_red"
+    android:layout_marginTop="8dp"
+    android:id="@+id/rl_location"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_location"
+        android:layout_above="@+id/ll_location"
+        android:layout_width="115dp"
+        android:layout_height="87dp"
+        android:layout_margin="8dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/huda_location"/>
+
+    <LinearLayout
+        android:id="@+id/ll_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/location_icon"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="12dp"
+            android:textColor="#ff000000"
+            android:text="史黛拉三打"/>
+
+        <ImageView
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:src="@mipmap/arrow_black"
+            android:layout_gravity="right"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

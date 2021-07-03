@@ -4,6 +4,7 @@
     android:layout_height="34dp"
     android:background="@mipmap/blue_background"
     android:layout_marginTop="8dp"
+    android:id="@+id/rl_baike"
     android:orientation="horizontal">
 
     <ImageView

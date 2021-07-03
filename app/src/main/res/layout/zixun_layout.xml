@@ -4,6 +4,7 @@
     android:layout_height="34dp"
     android:background="@mipmap/orange_background"
     android:layout_marginTop="8dp"
+    android:id="@+id/rl_zixun"
     android:orientation="horizontal">
 
     <ImageView
@@ -13,7 +14,7 @@
         android:layout_height="24dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="5dp"
-        android:src="@mipmap/red_icon"/>
+        android:src="@mipmap/orange_icon"/>
 
     <TextView
         android:id="@+id/tv_zixun"

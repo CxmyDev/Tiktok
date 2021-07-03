@@ -1,16 +1,12 @@
 package com.bytedance.tiktok.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.ImageView
 import com.bytedance.tiktok.R
-import com.bytedance.tiktok.adapter.CommentAdapter
-import com.bytedance.tiktok.bean.CommentBean
-import com.bytedance.tiktok.bean.DataCreate
-import kotlinx.android.synthetic.main.dialog_comment.*
-import java.util.*
 
 /**
  * create by libo
@@ -19,9 +15,11 @@ import java.util.*
  */
 class InformationDialog : BaseBottomSheetDialog() {
 
-
+    var imgId:Int ? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.dialog_info, container)
+        var ivPopImg= view!!.findViewById<ImageView>(R.id.iv_popImg)
+        ivPopImg.setImageResource(imgId!!)
         return view
     }
 
@@ -32,4 +30,8 @@ class InformationDialog : BaseBottomSheetDialog() {
 
     protected override val height: Int
         protected get() = resources.displayMetrics.heightPixels - 600
+
+    fun setImgId(resId: Int) {
+        this.imgId = resId
+    }
 }

@@ -3,20 +3,17 @@ package com.bytedance.tiktok.fragment
 import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.SeekBar
+import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import com.bytedance.tiktok.R
 import com.bytedance.tiktok.activity.MainActivity
 import com.bytedance.tiktok.activity.PlayListActivity
 import com.bytedance.tiktok.adapter.VideoAdapter
 import com.bytedance.tiktok.base.BaseFragment
-import com.bytedance.tiktok.bean.CurUserBean
-import com.bytedance.tiktok.bean.DataCreate
-import com.bytedance.tiktok.bean.MainPageChangeEvent
-import com.bytedance.tiktok.bean.PauseVideoEvent
+import com.bytedance.tiktok.bean.*
 import com.bytedance.tiktok.utils.OnVideoControllerListener
 import com.bytedance.tiktok.utils.RxBus
 import com.bytedance.tiktok.view.*
@@ -24,6 +21,8 @@ import com.bytedance.tiktok.view.viewpagerlayoutmanager.OnViewPagerListener
 import com.bytedance.tiktok.view.viewpagerlayoutmanager.ViewPagerLayoutManager
 import kotlinx.android.synthetic.main.fragment_recommend.*
 import rx.functions.Action1
+import java.util.*
+
 
 /**
  * create by libo
@@ -39,7 +38,9 @@ class RecommendFragment : BaseFragment() {
     private var videoView: FullScreenVideoView? = null
 
     private var ivCurCover: ImageView? = null
-//    var seekBar: SeekBar? = null
+
+    //    var seekBar: SeekBar? = null
+    var llInformation: LinearLayout? = null
 
     private val handler: Handler = Handler()
     private val runnable: Runnable = object : Runnable {
@@ -47,8 +48,22 @@ class RecommendFragment : BaseFragment() {
             if (videoView!!.isPlaying) {
                 val current = videoView!!.currentPosition
                 seekBar!!.progress = current
+                for (i in 0..(childCount!! - 1)) {
+                    var tipsBean = videoBean!!.tipsList[i]
+                    if (videoBean!!.isTurnOn) {
+                        if (tipsBean.startTime <= current && tipsBean.endTime > current) {
+                            llInformation!!.getChildAt(i).visibility = View.VISIBLE
+                        } else {
+                            llInformation!!.getChildAt(i).visibility = View.GONE
+                        }
+                    }else{
+                        llInformation!!.getChildAt(i).visibility = View.GONE
+                    }
+
+                }
+                seekBar!!.max = videoView!!.duration
             }
-            handler.postDelayed(this, 500)
+            handler.postDelayed(this, 0)
         }
     }
 
@@ -70,6 +85,7 @@ class RecommendFragment : BaseFragment() {
                 .subscribe(Action1 { event: PauseVideoEvent ->
                     if (event.isPlayOrPause) {
                         videoView!!.start()
+                        ivPlay!!.visibility = View.GONE
                     } else {
                         videoView!!.pause()
                     }
@@ -129,6 +145,7 @@ class RecommendFragment : BaseFragment() {
         }
     }
 
+    var ivPlay:ImageView? = null
     private fun playCurVideo(position: Int) {
         if (position == curPlayPos) {
             return
@@ -137,21 +154,19 @@ class RecommendFragment : BaseFragment() {
         val rootView = itemView.findViewById<ViewGroup>(R.id.rl_container)
         val likeView: LikeView = rootView.findViewById(R.id.likeview)
         val controllerView: ControllerView = rootView.findViewById(R.id.controller)
-        val ivPlay = rootView.findViewById<ImageView>(R.id.iv_play)
+        ivPlay = rootView.findViewById<ImageView>(R.id.iv_play)
         val ivCover = rootView.findViewById<ImageView>(R.id.iv_cover)
-        ivPlay.alpha = 0.4f
-
-//        seekBar = controllerView.findViewById(R.id.seekBar)
-//        seekBar!!.setOnSeekBarChangeListener(onSeekBarChangeListener)
+        ivPlay!!.alpha = 0.4f
+        llInformation = controllerView.findViewById(R.id.llInformation)
         //播放暂停事件
-        likeView.setOnPlayPauseListener(object: LikeView.OnPlayPauseListener {
+        likeView.setOnPlayPauseListener(object : LikeView.OnPlayPauseListener {
             override fun onPlayOrPause() {
                 if (videoView!!.isPlaying) {
                     videoView!!.pause()
-                    ivPlay.visibility = View.VISIBLE
+                    ivPlay!!.visibility = View.VISIBLE
                 } else {
                     videoView!!.start()
-                    ivPlay.visibility = View.GONE
+                    ivPlay!!.visibility = View.GONE
                 }
             }
 
@@ -180,15 +195,17 @@ class RecommendFragment : BaseFragment() {
         rootView.addView(videoView, 0)
     }
 
+    var childCount: Int? = null
+    var videoBean: VideoBean? = null
+
     /**
      * 自动播放视频
      */
-    private fun autoPlayVideo(position: Int, ivCover: ImageView,seekBar: SeekBar) {
+    private fun autoPlayVideo(position: Int, ivCover: ImageView, seekBar: SeekBar) {
+        llInformation!!.removeAllViews()
         val bgVideoPath = "android.resource://" + activity!!.packageName + "/" + DataCreate.datas[position].videoRes
         videoView!!.setVideoPath(bgVideoPath)
-        handler.postDelayed(runnable, 0)
         videoView!!.start()
-        seekBar!!.max = videoView!!.duration
         videoView!!.setOnPreparedListener { mp: MediaPlayer ->
             mp.isLooping = true
 
@@ -201,6 +218,77 @@ class RecommendFragment : BaseFragment() {
                 }
             }.start()
         }
+
+        videoBean = DataCreate.datas[position]
+        val list: ArrayList<TipsBean> = videoBean!!.tipsList
+        for (i in list.indices) {
+            var tipsBean = videoBean!!.tipsList[i]
+            if (tipsBean.tipsType == TipsBean.TIPS_TYPE_WIKI) {
+                val view: RelativeLayout = LayoutInflater.from(context).inflate(R.layout.baike_layout, null) as RelativeLayout
+
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                layoutParams.setMargins(0, 0, 0, 24)
+                layoutParams.height = 102
+                view.layoutParams = layoutParams
+
+                val tvBaike: TextView = view.findViewById<TextView>(R.id.tv_baike)
+                tvBaike.text = tipsBean.tipsText
+                view.visibility = View.GONE
+                llInformation!!.addView(view)
+            } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_SHOPPING) {
+                val view = LayoutInflater.from(context).inflate(R.layout.taobao_layout, null)
+
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                layoutParams.setMargins(0, 0, 0, 24)
+                layoutParams.height = 102
+                view.layoutParams = layoutParams
+
+                val tvTaobao: TextView = view.findViewById<TextView>(R.id.tv_taobao)
+                tvTaobao.text = tipsBean.tipsText
+                view.visibility = View.GONE
+                llInformation!!.addView(view)
+            } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_NEWS) {
+                val view = LayoutInflater.from(context).inflate(R.layout.zixun_layout, null)
+
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                layoutParams.setMargins(0, 0, 0, 24)
+                layoutParams.height = 102
+                view.layoutParams = layoutParams
+
+                val tvZixun: TextView = view.findViewById<TextView>(R.id.tv_zixun)
+                tvZixun.text = tipsBean.tipsText
+                view.visibility = View.GONE
+                llInformation!!.addView(view)
+            } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_LOCATION) {
+                val view = LayoutInflater.from(context).inflate(R.layout.location_layout, null)
+
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                layoutParams.setMargins(0, 0, 0, 24)
+                layoutParams.height = 130 * 3
+                view.layoutParams = layoutParams
+
+                var ivLocation = view.findViewById<ImageView>(R.id.iv_location)
+                ivLocation.setBackgroundResource(tipsBean.locationPic)
+
+                val tvLocation: TextView = view.findViewById(R.id.tv_location)
+                tvLocation.text = tipsBean.tipsText
+                view.visibility = View.GONE
+                llInformation!!.addView(view)
+            }
+        }
+
+        childCount = llInformation!!.childCount
+
+        for (i in 0..(childCount!! - 1)) {
+            var view: View = llInformation!!.getChildAt(i)
+            view!!.setOnClickListener(View.OnClickListener {
+                val informationDialog = InformationDialog()
+                informationDialog.setImgId(videoBean!!.tipsList[i].popupImg)
+                informationDialog.show(childFragmentManager, "")
+                videoView!!.pause()
+            })
+        }
+        handler.postDelayed(runnable, 0)
     }
 
     private val onSeekBarChangeListener: OnSeekBarChangeListener = object : OnSeekBarChangeListener {
@@ -239,6 +327,7 @@ class RecommendFragment : BaseFragment() {
                 val informationDialog = InformationDialog()
                 informationDialog.show(childFragmentManager, "")
                 videoView!!.pause()
+                ivPlay!!.visibility = View.VISIBLE
             }
 
             override fun onShareClick() {

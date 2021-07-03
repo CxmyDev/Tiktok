@@ -29,16 +29,10 @@ class ControllerView(context: Context?, attrs: AttributeSet?) : RelativeLayout(c
         val rootView = LayoutInflater.from(context).inflate(R.layout.view_controller, this)
         ButterKnife.bind(this, rootView)
         ivComment!!.setOnClickListener(this)
-
         ivShare!!.setOnClickListener(this)
         rlLike!!.setOnClickListener(this)
+        switchLottieAnimationView!!.setOnClickListener(this)
 
-        var childCount = llInformation.childCount
-
-        for (i in 0..(childCount-1)) {
-            var view: View = llInformation.getChildAt(i)
-            view!!.setOnClickListener(this)
-        }
 
         setRotateAnim()
     }
@@ -75,12 +69,28 @@ class ControllerView(context: Context?, attrs: AttributeSet?) : RelativeLayout(c
                 listener!!.onLikeClick()
                 like()
             }
-            R.id.baike -> listener!!.onInformationClick()
-            R.id.zixun -> listener!!.onInformationClick()
-            R.id.taobao -> listener!!.onInformationClick()
+            R.id.switchLottieAnimationView -> {
+                switch()
+            }
             R.id.ivComment -> listener!!.onCommentClick()
             R.id.ivShare -> listener!!.onShareClick()
         }
+    }
+
+    /**
+     * 切换开关
+     */
+    private fun switch() {
+        if (!videoData!!.isTurnOn) {
+            //开启开关
+            switchLottieAnimationView!!.setAnimation("button.json")
+            switchLottieAnimationView!!.playAnimation()
+        } else {
+            //关闭开关
+            switchLottieAnimationView!!.setAnimation("button_close.json")
+            switchLottieAnimationView!!.playAnimation()
+        }
+        videoData!!.isTurnOn = !videoData!!.isTurnOn
     }
 
     /**

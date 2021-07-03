@@ -1,5 +1,7 @@
 package com.bytedance.tiktok.bean
 
+import java.util.*
+
 /**
  * create by libo
  * create on 2020-06-03
@@ -44,6 +46,8 @@ class VideoBean {
     var shareCount = 0
 
     var tipsList = ArrayList<TipsBean>()
+
+    var isTurnOn = true
 
     class UserBean {
         var uid = 0

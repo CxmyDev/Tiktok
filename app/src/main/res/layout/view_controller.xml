@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:background="@color/black">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,37 +56,25 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true">
 
-
         <LinearLayout
             android:id="@+id/llInformation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:orientation="vertical">
-            <include
-                android:id="@+id/baike"
-                layout="@layout/baike_layout" />
-            <include
-                android:id="@+id/taobao"
-                layout="@layout/taobao_layout"/>
-            <include
-                android:id="@+id/zixun"
-                layout="@layout/zixun_layout"/>
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/s_witch"
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/switchLottieAnimationView"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="button.json"
+            app:lottie_loop="false"
             android:layout_marginTop="8dp"
-            android:switchMinWidth="36dp"
-            android:track="@drawable/switch_selector"
             android:layout_marginBottom="30dp"/>
 
-<!--        <com.airbnb.lottie.LottieAnimationView-->
-<!--            android:id="@+id/switch_btn"-->
-<!--            android:layout_width="108dp"-->
-<!--            android:layout_height="108dp" />-->
 
         <RelativeLayout
             android:id="@+id/rlLike"
