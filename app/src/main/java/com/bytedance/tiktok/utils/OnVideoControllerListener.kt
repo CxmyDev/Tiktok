@@ -11,6 +11,8 @@ interface OnVideoControllerListener {
 
     fun onLikeClick()
 
+    fun onInformationClick()
+
     fun onCommentClick()
 
     fun onShareClick()

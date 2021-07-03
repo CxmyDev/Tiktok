@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     tools:background="@color/black">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_marginLeft="12dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="120dp">
 
         <TextView
@@ -51,43 +53,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
+        android:gravity="right"
+        android:layout_marginRight="16dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true">
 
-        <RelativeLayout
-            android:layout_width="52dp"
-            android:layout_height="62dp">
 
-            <com.bytedance.tiktok.view.CircleImageView
-                android:id="@+id/ivHead"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                app:es_shape_type="round"
-                android:scaleType="centerCrop"/>
+        <LinearLayout
+            android:id="@+id/llInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical">
+            <include
+                android:id="@+id/baike"
+                layout="@layout/baike_layout" />
+            <include
+                android:id="@+id/taobao"
+                layout="@layout/taobao_layout"/>
+            <include
+                android:id="@+id/zixun"
+                layout="@layout/zixun_layout"/>
+        </LinearLayout>
 
-            <ImageView
-                android:id="@+id/ivFocus"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:padding="3dp"
-                android:src="@mipmap/add_focus"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"/>
-        </RelativeLayout>
+        <Switch
+            android:id="@+id/s_witch"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:switchMinWidth="36dp"
+            android:track="@drawable/switch_selector"
+            android:layout_marginBottom="30dp"/>
+
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/switch_btn"-->
+<!--            android:layout_width="108dp"-->
+<!--            android:layout_height="108dp" />-->
 
         <RelativeLayout
             android:id="@+id/rlLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="36dp"
+            android:layout_height="60dp">
 
             <com.bytedance.tiktok.view.IconFontTextView
                 android:id="@+id/ivLike"
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="32sp"
                 android:textColor="@color/white"
-                android:layout_centerInParent="true"
                 android:text="@string/icon_like_fill" />
 
             <com.airbnb.lottie.LottieAnimationView
@@ -146,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="30dp">
 
             <ImageView
                 android:id="@+id/ivRecord"

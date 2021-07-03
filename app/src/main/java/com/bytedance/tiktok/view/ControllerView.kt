@@ -28,17 +28,23 @@ class ControllerView(context: Context?, attrs: AttributeSet?) : RelativeLayout(c
     private fun init() {
         val rootView = LayoutInflater.from(context).inflate(R.layout.view_controller, this)
         ButterKnife.bind(this, rootView)
-        ivHead!!.setOnClickListener(this)
         ivComment!!.setOnClickListener(this)
+
         ivShare!!.setOnClickListener(this)
         rlLike!!.setOnClickListener(this)
-        ivFocus!!.setOnClickListener(this)
+
+        var childCount = llInformation.childCount
+
+        for (i in 0..(childCount-1)) {
+            var view: View = llInformation.getChildAt(i)
+            view!!.setOnClickListener(this)
+        }
+
         setRotateAnim()
     }
 
     fun setVideoData(videoData: VideoBean) {
         this.videoData = videoData
-        ivHead!!.setImageResource(videoData.userBean!!.head)
         tvNickname!!.text = "@" + videoData.userBean!!.nickName
         AutoLinkHerfManager.setContent(videoData.content, autoLinkTextView)
         ivHeadAnim!!.setImageResource(videoData.userBean!!.head)
@@ -52,13 +58,6 @@ class ControllerView(context: Context?, attrs: AttributeSet?) : RelativeLayout(c
             ivLike!!.setTextColor(resources.getColor(R.color.color_FF0041))
         } else {
             ivLike!!.setTextColor(resources.getColor(R.color.white))
-        }
-
-        //关注状态
-        if (videoData.isFocused) {
-            ivFocus!!.visibility = GONE
-        } else {
-            ivFocus!!.visibility = VISIBLE
         }
     }
 
@@ -76,12 +75,11 @@ class ControllerView(context: Context?, attrs: AttributeSet?) : RelativeLayout(c
                 listener!!.onLikeClick()
                 like()
             }
+            R.id.baike -> listener!!.onInformationClick()
+            R.id.zixun -> listener!!.onInformationClick()
+            R.id.taobao -> listener!!.onInformationClick()
             R.id.ivComment -> listener!!.onCommentClick()
             R.id.ivShare -> listener!!.onShareClick()
-            R.id.ivFocus -> if (!videoData!!.isFocused) {
-                videoData!!.isLiked = true
-                ivFocus!!.visibility = GONE
-            }
         }
     }
 

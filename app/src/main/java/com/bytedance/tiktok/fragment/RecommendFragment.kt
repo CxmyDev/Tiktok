@@ -2,9 +2,12 @@ package com.bytedance.tiktok.fragment
 
 import android.media.MediaPlayer
 import android.os.CountDownTimer
+import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import com.bytedance.tiktok.R
 import com.bytedance.tiktok.activity.MainActivity
 import com.bytedance.tiktok.activity.PlayListActivity
@@ -36,6 +39,19 @@ class RecommendFragment : BaseFragment() {
     private var videoView: FullScreenVideoView? = null
 
     private var ivCurCover: ImageView? = null
+//    var seekBar: SeekBar? = null
+
+    private val handler: Handler = Handler()
+    private val runnable: Runnable = object : Runnable {
+        override fun run() {
+            if (videoView!!.isPlaying) {
+                val current = videoView!!.currentPosition
+                seekBar!!.progress = current
+            }
+            handler.postDelayed(this, 500)
+        }
+    }
+
 
     override fun setLayoutId(): Int {
         return R.layout.fragment_recommend
@@ -45,6 +61,7 @@ class RecommendFragment : BaseFragment() {
         adapter = VideoAdapter(activity, DataCreate.datas)
         recyclerView!!.adapter = adapter
         videoView = FullScreenVideoView(activity)
+        seekBar!!.setOnSeekBarChangeListener(onSeekBarChangeListener)
         setViewPagerLayoutManager()
         setRefreshEvent()
 
@@ -124,6 +141,8 @@ class RecommendFragment : BaseFragment() {
         val ivCover = rootView.findViewById<ImageView>(R.id.iv_cover)
         ivPlay.alpha = 0.4f
 
+//        seekBar = controllerView.findViewById(R.id.seekBar)
+//        seekBar!!.setOnSeekBarChangeListener(onSeekBarChangeListener)
         //播放暂停事件
         likeView.setOnPlayPauseListener(object: LikeView.OnPlayPauseListener {
             override fun onPlayOrPause() {
@@ -147,7 +166,7 @@ class RecommendFragment : BaseFragment() {
 
         //切换播放器位置
         dettachParentView(rootView)
-        autoPlayVideo(curPlayPos, ivCover)
+        autoPlayVideo(curPlayPos, ivCover, seekBar!!)
     }
 
     /**
@@ -164,10 +183,12 @@ class RecommendFragment : BaseFragment() {
     /**
      * 自动播放视频
      */
-    private fun autoPlayVideo(position: Int, ivCover: ImageView) {
+    private fun autoPlayVideo(position: Int, ivCover: ImageView,seekBar: SeekBar) {
         val bgVideoPath = "android.resource://" + activity!!.packageName + "/" + DataCreate.datas[position].videoRes
         videoView!!.setVideoPath(bgVideoPath)
+        handler.postDelayed(runnable, 0)
         videoView!!.start()
+        seekBar!!.max = videoView!!.duration
         videoView!!.setOnPreparedListener { mp: MediaPlayer ->
             mp.isLooping = true
 
@@ -179,6 +200,23 @@ class RecommendFragment : BaseFragment() {
                     ivCurCover = ivCover
                 }
             }.start()
+        }
+    }
+
+    private val onSeekBarChangeListener: OnSeekBarChangeListener = object : OnSeekBarChangeListener {
+        // 当进度条停止修改的时候触发
+        override fun onStopTrackingTouch(seekBar: SeekBar) {
+            // 取得当前进度条的刻度
+            val progress = seekBar.progress
+            if (videoView!!.isPlaying) {
+                // 设置当前播放的位置
+                videoView!!.seekTo(progress)
+            }
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
+        override fun onProgressChanged(seekBar: SeekBar, progress: Int,
+                                       fromUser: Boolean) {
         }
     }
 
@@ -195,6 +233,12 @@ class RecommendFragment : BaseFragment() {
             override fun onCommentClick() {
                 val commentDialog = CommentDialog()
                 commentDialog.show(childFragmentManager, "")
+            }
+
+            override fun onInformationClick() {
+                val informationDialog = InformationDialog()
+                informationDialog.show(childFragmentManager, "")
+                videoView!!.pause()
             }
 
             override fun onShareClick() {

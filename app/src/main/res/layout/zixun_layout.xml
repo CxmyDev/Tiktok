@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="34dp"
+    android:background="@mipmap/orange_background"
+    android:layout_marginTop="8dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:id="@+id/zixun_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="5dp"
+        android:src="@mipmap/red_icon"/>
+
+    <TextView
+        android:id="@+id/tv_zixun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/zixun_icon"
+        android:textSize="12dp"
+        android:textColor="#ffffffff"
+        android:text="史黛拉三打"/>
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_zixun"
+        android:src="@mipmap/arrow_white"/>
+
+</RelativeLayout>

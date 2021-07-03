@@ -1,13 +1,20 @@
 package com.bytedance.tiktok.view
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.FrameLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.bytedance.tiktok.R
+import com.bytedance.tiktok.bean.PauseVideoEvent
+import com.bytedance.tiktok.utils.RxBus
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
 
 /**
  * create by libo
@@ -29,6 +36,19 @@ open class BaseBottomSheetDialog : BottomSheetDialogFragment() {
             behavior?.peekHeight = height
             // 初始为展开状态
             behavior?.state = BottomSheetBehavior.STATE_EXPANDED
+
+            behavior?.setBottomSheetCallback(object : BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                        RxBus.getDefault().post(PauseVideoEvent(true))
+                        dismiss()
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                }
+            })
+
         }
     }
 
@@ -52,4 +72,27 @@ open class BaseBottomSheetDialog : BottomSheetDialogFragment() {
         val scale = context.resources.displayMetrics.density
         return (dpValue * scale + 0.5f).toInt()
     }
+
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        return super.onCreateDialog(savedInstanceState)
+//    }
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        val d = super.onCreateDialog(savedInstanceState)
+//        d.setOnShowListener { dialog ->
+//            val d = dialog as BottomSheetDialog
+//            val bottomSheet = d.findViewById<View>(android.support.design.R.id.design_bottom_sheet) as FrameLayout?
+//            val behaviour: BottomSheetBehavior<*> = BottomSheetBehavior.from(bottomSheet)
+//            behaviour.setBottomSheetCallback(object : BottomSheetCallback() {
+//                override fun onStateChanged(bottomSheet: View, newState: Int) {
+//                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+//                        handleUserExit()
+//                        dismiss()
+//                    }
+//                }
+//
+//                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+//            })
+//        }
+//        return d
+//    }
 }
