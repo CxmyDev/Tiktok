@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LaunchTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@mipmap/logo</item>
+    </style>
+
+
     <style name="MyDialog" parent="AlertDialog.AppCompat">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowFrame">@null</item>

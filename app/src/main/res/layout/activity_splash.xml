@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SplashActivity"
-    android:background="#140c16">
+    android:background="#FF7A7A">
 
     <ImageView
-        android:layout_width="240dp"
-        android:layout_height="160dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@mipmap/logo"
         android:layout_centerInParent="true"/>
 </RelativeLayout>
