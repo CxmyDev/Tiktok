@@ -25,6 +25,11 @@ class TipsBean {
          * 定位
          */
         const val TIPS_TYPE_LOCATION = "location"
+
+        /**
+         * 通用信息
+         */
+        const val TIPS_TYPE_INFO = "info"
     }
 
 

@@ -1,5 +1,6 @@
 package com.bytedance.tiktok.bean
 
+import android.text.TextUtils
 import android.util.JsonReader
 import android.util.Log
 import com.bytedance.tiktok.R
@@ -335,12 +336,10 @@ class DataCreate {
             videoBean.userBean!!.head = res.getIdentifier(videoBean.userBean!!.headFile, "mipmap", App.context!!.packageName)
 
             for (tipsBean in videoBean.tipsList) {
-                if (tipsBean.tipsType.equals(TipsBean.TIPS_TYPE_LOCATION)) {
-                tipsBean.locationPic = res.
-                        getIdentifier(tipsBean.locationPicFile, "mipmap", packageName)
+                if (!TextUtils.isEmpty(tipsBean.locationPicFile)) {
+                    tipsBean.locationPic = res.getIdentifier(tipsBean.locationPicFile, "mipmap", packageName)
                 }
-                tipsBean.popupImg = res.
-                        getIdentifier(tipsBean.popupImgFile, "mipmap", packageName)
+                tipsBean.popupImg = res.getIdentifier(tipsBean.popupImgFile, "mipmap", packageName)
             }
         }
 
