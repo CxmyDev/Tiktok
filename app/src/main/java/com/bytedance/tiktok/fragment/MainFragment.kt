@@ -60,11 +60,11 @@ class MainFragment : BaseFragment() {
     }
 
     private fun setMainMenu() {
-        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("首页"))
-        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("好友"))
-        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText(""))
-        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("消息"))
-        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("我"))
+//        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("首页"))
+//        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("好友"))
+//        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText(""))
+//        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("消息"))
+//        tabMainMenu!!.addTab(tabMainMenu!!.newTab().setText("我"))
     }
 
     companion object {

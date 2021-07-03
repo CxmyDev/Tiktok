@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/shape_top_round_white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,10 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <ImageView
+        <com.bytedance.tiktok.view.RoundAngleImageView
             android:id="@+id/iv_popImg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:roundWidth="12dp"
+            app:roundHeight="12dp"/>
     </LinearLayout>
 
 </ScrollView>

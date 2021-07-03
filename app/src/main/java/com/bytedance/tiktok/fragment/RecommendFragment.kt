@@ -226,7 +226,7 @@ class RecommendFragment : BaseFragment() {
             if (tipsBean.tipsType == TipsBean.TIPS_TYPE_WIKI) {
                 val view: RelativeLayout = LayoutInflater.from(context).inflate(R.layout.baike_layout, null) as RelativeLayout
 
-                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                 layoutParams.setMargins(0, 0, 0, 24)
                 layoutParams.height = 102
                 view.layoutParams = layoutParams
@@ -238,7 +238,7 @@ class RecommendFragment : BaseFragment() {
             } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_SHOPPING) {
                 val view = LayoutInflater.from(context).inflate(R.layout.taobao_layout, null)
 
-                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                 layoutParams.setMargins(0, 0, 0, 24)
                 layoutParams.height = 102
                 view.layoutParams = layoutParams
@@ -250,7 +250,7 @@ class RecommendFragment : BaseFragment() {
             } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_NEWS) {
                 val view = LayoutInflater.from(context).inflate(R.layout.zixun_layout, null)
 
-                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                 layoutParams.setMargins(0, 0, 0, 24)
                 layoutParams.height = 102
                 view.layoutParams = layoutParams
@@ -262,7 +262,7 @@ class RecommendFragment : BaseFragment() {
             } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_LOCATION) {
                 val view = LayoutInflater.from(context).inflate(R.layout.location_layout, null)
 
-                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                 layoutParams.setMargins(0, 0, 0, 24)
                 layoutParams.height = 130 * 3
                 view.layoutParams = layoutParams
