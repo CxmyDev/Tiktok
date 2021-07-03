@@ -314,7 +314,13 @@ class DataCreate {
         for (videoBean in list) {
             userList.add(videoBean.userBean!!)
         }
-        Log.i("zyang1", list.size.toString())
+        for (videoBean in list) {
+            userList.add(videoBean.userBean!!)
+        }
+        for (videoBean in list) {
+            userList.add(videoBean.userBean!!)
+        }
+        Log.i("zyang1", userList.size.toString())
     }
 
     companion object {

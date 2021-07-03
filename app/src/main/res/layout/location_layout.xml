@@ -13,8 +13,7 @@
         android:layout_width="115dp"
         android:layout_height="87dp"
         android:layout_margin="8dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/huda_location"/>
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:id="@+id/ll_location"
@@ -27,9 +26,9 @@
         android:paddingLeft="5dp">
 
         <ImageView
+            android:id="@+id/iv_normal"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@mipmap/location_icon"
             android:layout_gravity="left"
             android:layout_marginRight="10dp"/>
 

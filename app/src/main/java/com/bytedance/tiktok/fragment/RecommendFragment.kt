@@ -259,7 +259,7 @@ class RecommendFragment : BaseFragment() {
                 tvZixun.text = tipsBean.tipsText
                 view.visibility = View.GONE
                 llInformation!!.addView(view)
-            } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_LOCATION || tipsBean.tipsType == "info") {
+            } else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_LOCATION) {
                 val view = LayoutInflater.from(context).inflate(R.layout.location_layout, null)
 
                 var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -269,6 +269,28 @@ class RecommendFragment : BaseFragment() {
 
                 var ivLocation = view.findViewById<ImageView>(R.id.iv_location)
                 ivLocation.setBackgroundResource(tipsBean.locationPic)
+
+                var ivNormal = view.findViewById<ImageView>(R.id.iv_normal)
+                ivNormal.setBackgroundResource(R.mipmap.location_icon_1)
+
+                val tvLocation: TextView = view.findViewById(R.id.tv_location)
+                tvLocation.text = tipsBean.tipsText
+                view.visibility = View.GONE
+                llInformation!!.addView(view)
+            }else if (tipsBean.tipsType == TipsBean.TIPS_TYPE_INFO) {
+                val view = LayoutInflater.from(context).inflate(R.layout.location_layout, null)
+
+                var layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                layoutParams.setMargins(0, 0, 0, 24)
+                layoutParams.height = 130 * 3
+                view.layoutParams = layoutParams
+
+                var ivLocation = view.findViewById<ImageView>(R.id.iv_location)
+                ivLocation.setBackgroundResource(tipsBean.locationPic)
+
+                var ivNormal = view.findViewById<ImageView>(R.id.iv_normal)
+                ivNormal.setBackgroundResource(R.mipmap.location_icon)
+
 
                 val tvLocation: TextView = view.findViewById(R.id.tv_location)
                 tvLocation.text = tipsBean.tipsText
