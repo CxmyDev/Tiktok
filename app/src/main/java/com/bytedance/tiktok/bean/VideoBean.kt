@@ -11,8 +11,12 @@ class VideoBean {
     /** 视频播放资源  */
     var videoRes = 0
 
+    var videoResFile = ""
+
     /** 封面图片资源  */
     var coverRes = 0
+
+    var coverResFile = ""
 
     /** 视频文案内容  */
     var content: String? = null
@@ -39,11 +43,16 @@ class VideoBean {
     /** 转发数  */
     var shareCount = 0
 
+    var tipsList = ArrayList<TipsBean>()
+
     class UserBean {
         var uid = 0
         var nickName: String? = null
             get() = if (field == null) "" else field
+        
         var head = 0
+
+        var headFile = ""
 
         /** 座右铭  */
         var sign: String? = null

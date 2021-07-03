@@ -36,9 +36,9 @@ class MainFragment : BaseFragment() {
         recommendFragment = RecommendFragment()
         fragments.add(currentLocationFragment!!)
         fragments.add(recommendFragment!!)
-        tabTitle!!.addTab(tabTitle!!.newTab().setText("海淀"))
+        tabTitle!!.addTab(tabTitle!!.newTab().setText("朝阳"))
         tabTitle!!.addTab(tabTitle!!.newTab().setText("推荐"))
-        pagerAdapter = CommPagerAdapter(childFragmentManager, fragments, arrayOf("海淀", "推荐"))
+        pagerAdapter = CommPagerAdapter(childFragmentManager, fragments, arrayOf("朝阳", "推荐"))
         viewPager!!.adapter = pagerAdapter
         tabTitle!!.setupWithViewPager(viewPager)
         tabTitle!!.getTabAt(1)!!.select()
